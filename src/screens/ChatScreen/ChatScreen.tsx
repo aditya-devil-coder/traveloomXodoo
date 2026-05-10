@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { styles } from './ChatScreen.styles';
 import { chatList } from '../../data/messages/MessageData';
 
-const tabs = ['All chats', 'Group chats', 'Direct messages'];
+const tabs = ['All chats', 'Travelers', 'Support'];
 
 function ChatScreen({ navigation }: any) {
   const [activeTab, setActiveTab] = useState('All chats');
@@ -18,10 +18,30 @@ function ChatScreen({ navigation }: any) {
 
   const filtered = chatList.filter(c => {
     const matchSearch = c.name.toLowerCase().includes(search.toLowerCase());
-    if (activeTab === 'Direct messages') return matchSearch && c.type === 'hostel';
-    if (activeTab === 'Group chats') return matchSearch && c.type === 'support';
+    if (activeTab === 'Travelers') return matchSearch && c.type === 'traveler';
+    if (activeTab === 'Support') return matchSearch && c.type === 'support';
     return matchSearch;
   });
+
+  const getAvatarIcon = (type: string) => {
+    if (type === 'support') return 'headset-mic';
+    return 'person';
+  };
+
+  const getAvatarStyle = (type: string) => {
+    if (type === 'support') return styles.avatarBoxSupport;
+    return styles.avatarBoxTraveler;
+  };
+
+  const getBadgeStyle = (type: string) => {
+    if (type === 'support') return styles.typeBadgeSupport;
+    return styles.typeBadgeTraveler;
+  };
+
+  const getBadgeLabel = (type: string) => {
+    if (type === 'support') return 'Support';
+    return 'Traveler';
+  };
 
   return (
     <View style={styles.container}>
@@ -78,7 +98,7 @@ function ChatScreen({ navigation }: any) {
           </View>
           <Text style={styles.emptyTitle}>No chats for now</Text>
           <Text style={styles.emptySubtitle}>
-            Start a conversation and connect with fellow travelers
+            Read a travel blog and start a conversation with the traveler!
           </Text>
         </View>
       ) : (
@@ -92,14 +112,11 @@ function ChatScreen({ navigation }: any) {
             >
               {/* Avatar */}
               <View style={styles.avatarWrapper}>
-                <View style={[
-                  styles.avatarBox,
-                  chat.type === 'hostel' && styles.avatarBoxHostel,
-                ]}>
+                <View style={[styles.avatarBox, getAvatarStyle(chat.type)]}>
                   <Icon
-                    name={chat.type === 'support' ? 'support-agent' : 'home'}
+                    name={getAvatarIcon(chat.type)}
                     size={26}
-                    color="#E8445A"
+                    color={chat.type === 'support' ? '#E8445A' : '#007AFF'}
                   />
                 </View>
                 {chat.isOnline && <View style={styles.onlineDot} />}
@@ -110,18 +127,25 @@ function ChatScreen({ navigation }: any) {
                 <View style={styles.chatTopRow}>
                   <View style={styles.chatNameRow}>
                     <Text style={styles.chatName}>{chat.name}</Text>
-                    {/* ✅ Type badge */}
-                    <View style={[
-                      styles.typeBadge,
-                      chat.type === 'support' ? styles.typeBadgeSupport : styles.typeBadgeHostel,
-                    ]}>
+                    <View style={[styles.typeBadge, getBadgeStyle(chat.type)]}>
                       <Text style={styles.typeBadgeText}>
-                        {chat.type === 'support' ? 'Support' : 'Hostel'}
+                        {getBadgeLabel(chat.type)}
                       </Text>
                     </View>
                   </View>
                   <Text style={styles.chatTime}>{chat.time}</Text>
                 </View>
+
+                {/* Blog context row for travelers */}
+                {chat.type === 'traveler' && chat.blogTitle && (
+                  <View style={styles.blogContextRow}>
+                    <Icon name="article" size={11} color="#888" />
+                    <Text style={styles.blogContextText} numberOfLines={1}>
+                      {chat.blogTitle}
+                    </Text>
+                  </View>
+                )}
+
                 <View style={styles.chatBottomRow}>
                   <Text style={styles.chatLastMsg} numberOfLines={1}>
                     {chat.lastMessage}

@@ -1,225 +1,291 @@
+// ─── Chat List ──────────────────────────────────────────────────────────────
 export const chatList = [
   {
     id: 1,
-    name: 'HostelBird Support',
+    name: 'Traveloop Support',
     avatar: 'support',
-    lastMessage: 'Hi! How can we help you today?',
+    lastMessage: 'Hi! How can we help you plan your trip today?',
     time: 'Now',
     unread: 1,
     isOnline: true,
     type: 'support',
-    hostelId: null,
+    userId: null,
   },
   {
     id: 2,
-    name: 'The Social Stays',
-    avatar: 'hostel',
-    lastMessage: 'Yes, early check-in is available for ₹200 extra!',
-    time: '10:32 AM',
+    name: 'Arjun Mehta',
+    avatar: 'user',
+    lastMessage: 'Bro the Spiti Valley route I shared is 🔥, you should try it!',
+    time: '11:45 AM',
     unread: 2,
     isOnline: true,
-    type: 'hostel',
-    hostelId: 1,
-    hostelLocation: 'Manali, Himachal Pradesh',
-    hostelRating: 7.0,
+    type: 'traveler',
+    userId: 'arjun_mehta',
+    location: 'Mumbai, Maharashtra',
+    tripsShared: 12,
+    followers: 3400,
+    blogTitle: 'Spiti Valley in Winter – The Complete Guide',
   },
   {
     id: 3,
-    name: 'Cloudbase Hostel',
-    avatar: 'hostel',
-    lastMessage: 'Your booking is confirmed for 28 Apr ✅',
+    name: 'Priya Sharma',
+    avatar: 'user',
+    lastMessage: 'Yes! Kasol is totally worth it in October. Crowds are less 🍂',
     time: 'Yesterday',
     unread: 0,
     isOnline: false,
-    type: 'hostel',
-    hostelId: 11,
-    hostelLocation: 'Manali, Himachal Pradesh',
-    hostelRating: 9.1,
+    type: 'traveler',
+    userId: 'priya_sharma',
+    location: 'Delhi, India',
+    tripsShared: 8,
+    followers: 1900,
+    blogTitle: "Kasol & Kheerganga Trek – A Solo Female Traveler's Diary",
   },
   {
     id: 4,
-    name: 'The Basecamp',
-    avatar: 'hostel',
-    lastMessage: 'We have dorm beds available for your dates!',
+    name: 'Rohan Das',
+    avatar: 'user',
+    lastMessage: 'The budget I mentioned in the vlog is accurate, around ₹8k for 5 days',
     time: 'Mon',
     unread: 0,
     isOnline: true,
-    type: 'hostel',
-    hostelId: 18,
-    hostelLocation: 'Manali, Himachal Pradesh',
-    hostelRating: 9.3,
+    type: 'traveler',
+    userId: 'rohan_das',
+    location: 'Bengaluru, Karnataka',
+    tripsShared: 21,
+    followers: 7200,
+    blogTitle: 'Backpacking Rajasthan on a ₹500/Day Budget',
   },
   {
     id: 5,
-    name: 'Himalayan Backpackers',
-    avatar: 'hostel',
-    lastMessage: 'Breakfast is included in your package 🍳',
+    name: 'Sneha Kapoor',
+    avatar: 'user',
+    lastMessage: 'Coorg is magical in monsoon, just carry a good rain jacket! ☔',
     time: 'Sun',
     unread: 1,
     isOnline: false,
-    type: 'hostel',
-    hostelId: 4,
-    hostelLocation: 'Manali, Himachal Pradesh',
-    hostelRating: 8.5,
+    type: 'traveler',
+    userId: 'sneha_kapoor',
+    location: 'Pune, Maharashtra',
+    tripsShared: 5,
+    followers: 980,
+    blogTitle: 'Coorg in Monsoon – Hidden Waterfalls & Coffee Estates',
   },
-  {
-    id: 6,
-    name: 'Aurora Stays',
-    avatar: 'hostel',
-    lastMessage: 'Spa booking confirmed for 5 PM tomorrow!',
-    time: 'Sat',
+];
+
+// ─── Author → userId map (blog author name se userId milega) ────────────────
+export const authorToUserIdMap: Record<string, string> = {
+  'Arjun Mehta': 'arjun_mehta',
+  'Priya Sharma': 'priya_sharma',
+  'Rohan Das': 'rohan_das',
+  'Sneha Kapoor': 'sneha_kapoor',
+  // Blog authors from blogdata
+  'Riya Sharma': 'riya_sharma',
+  'Priya Nair': 'priya_nair',
+  'Vikram Singh': 'vikram_singh',
+  'Kavya Menon': 'kavya_menon',
+  'Aditya Kulkarni': 'aditya_kulkarni',
+  'Neha Joshi': 'neha_joshi',
+  'Rahul Desai': 'rahul_desai',
+  'Ananya Krishnan': 'ananya_krishnan',
+  'Sameer Qureshi': 'sameer_qureshi',
+  'Meera Iyer': 'meera_iyer',
+};
+
+// ─── Build chat object from blog author dynamically ─────────────────────────
+export const buildChatFromBlog = (blog: {
+  author: string;
+  title: string;
+  category: string;
+}) => {
+  const userId = authorToUserIdMap[blog.author] ?? blog.author.toLowerCase().replace(/\s+/g, '_');
+  // Check if already in chatList
+  const existing = chatList.find(c => c.userId === userId);
+  if (existing) return existing;
+
+  // Build a fresh chat object for this author
+  return {
+    id: userId,
+    name: blog.author,
+    avatar: 'user',
+    lastMessage: `Hey! Thanks for reading my blog on ${blog.title} 😊`,
+    time: 'Now',
     unread: 0,
     isOnline: true,
-    type: 'hostel',
-    hostelId: 20,
-    hostelLocation: 'Manali, Himachal Pradesh',
-    hostelRating: 8.4,
-  },
-];
+    type: 'traveler',
+    userId,
+    location: 'India',
+    tripsShared: 0,
+    followers: 0,
+    blogTitle: blog.title,
+  };
+};
 
-export const hostelMessages = {
-  2: [
+// ─── Traveler Messages ───────────────────────────────────────────────────────
+export const travelerMessages: Record<string, any[]> = {
+  arjun_mehta: [
     {
       id: '1',
-      text: 'Hello! Welcome to The Social Stays Manali 🏔️ How can we help you?',
+      text: 'Hey! I saw your comment on my Spiti Valley blog 🙌 Thanks for the love!',
       isUser: false,
-      time: '10:20 AM',
+      time: '11:30 AM',
     },
     {
       id: '2',
-      text: 'Hi! I wanted to ask about early check-in, is it possible?',
+      text: 'Bhai tera vlog dekh ke trip plan karna shuru kar diya 😂 Kaunsa month best hai?',
       isUser: true,
-      time: '10:25 AM',
+      time: '11:38 AM',
     },
     {
       id: '3',
-      text: 'Yes, early check-in is available for ₹200 extra! Standard check-in is at 1 PM.',
+      text: 'Bro the Spiti Valley route I shared is 🔥, you should try it! October is perfect — roads open, snow starts, not too crowded.',
       isUser: false,
-      time: '10:32 AM',
+      time: '11:45 AM',
     },
   ],
-  11: [
+  priya_sharma: [
     {
       id: '1',
-      text: 'Hi! Thanks for choosing Cloudbase Hostel 🌤️',
+      text: 'Hi! Saw you liked my Kasol diary. Happy to help if you have any questions 😊',
       isUser: false,
-      time: 'Yesterday 2:00 PM',
+      time: 'Yesterday 3:00 PM',
     },
     {
       id: '2',
-      text: 'Can you confirm my booking for 28 April?',
+      text: 'October mein Kasol safe hai? Crowds kitne honge?',
       isUser: true,
-      time: 'Yesterday 2:05 PM',
+      time: 'Yesterday 3:20 PM',
     },
     {
       id: '3',
-      text: 'Your booking is confirmed for 28 Apr ✅ Check-in at 1 PM. See you soon!',
+      text: 'Yes! Kasol is totally worth it in October. Crowds are less 🍂 Perfect for trekking to Kheerganga too!',
       isUser: false,
-      time: 'Yesterday 2:10 PM',
+      time: 'Yesterday 3:25 PM',
     },
   ],
-  18: [
+  rohan_das: [
     {
       id: '1',
-      text: 'Welcome to The Basecamp — Best Hostel in HP! 🏆 How can we assist?',
+      text: 'Aye! Rohan here. Thanks for following my Rajasthan series 🐪',
       isUser: false,
-      time: 'Mon 11:00 AM',
+      time: 'Mon 9:00 AM',
     },
     {
       id: '2',
-      text: 'Do you have dorm beds available from 1st May to 3rd May?',
+      text: 'Yaar tera budget realistic hai kya? ₹500/day mein kaise manage kiya?',
       isUser: true,
-      time: 'Mon 11:10 AM',
+      time: 'Mon 10:15 AM',
     },
     {
       id: '3',
-      text: 'We have dorm beds available for your dates! ₹899/night. Shall I reserve one?',
+      text: 'The budget I mentioned in the vlog is accurate, around ₹8k for 5 days. Shared dorms + local dhabas + state buses = magic combo 🙏',
       isUser: false,
-      time: 'Mon 11:15 AM',
+      time: 'Mon 10:30 AM',
     },
   ],
-  4: [
+  sneha_kapoor: [
     {
       id: '1',
-      text: 'Hello! Himalayan Backpackers here 🎒 How can we help?',
+      text: 'Hey there! Saw your message on my Coorg vlog 🌿 So glad it inspired you!',
       isUser: false,
-      time: 'Sun 9:00 AM',
+      time: 'Sun 2:00 PM',
     },
     {
       id: '2',
-      text: 'Is breakfast included in the dorm package?',
+      text: 'Monsoon mein Coorg theek rahega? Safety kaisi hai roads pe?',
       isUser: true,
-      time: 'Sun 9:05 AM',
+      time: 'Sun 2:10 PM',
     },
     {
       id: '3',
-      text: 'Breakfast is included in your package 🍳 Served 7-10 AM daily!',
+      text: 'Coorg is magical in monsoon, just carry a good rain jacket! ☔ Roads can be slippery so avoid two-wheelers in heavy rain.',
       isUser: false,
-      time: 'Sun 9:10 AM',
-    },
-  ],
-  20: [
-    {
-      id: '1',
-      text: 'Welcome to Aurora Stays ✨ Luxury meets budget. How can we help?',
-      isUser: false,
-      time: 'Sat 4:00 PM',
-    },
-    {
-      id: '2',
-      text: 'I want to book the rooftop spa for tomorrow evening.',
-      isUser: true,
-      time: 'Sat 4:10 PM',
-    },
-    {
-      id: '3',
-      text: 'Spa booking confirmed for 5 PM tomorrow! Please arrive 10 mins early 🧖‍♀️',
-      isUser: false,
-      time: 'Sat 4:15 PM',
+      time: 'Sun 2:18 PM',
     },
   ],
 };
 
-export const hostelQuickReplies = [
-  { id: 1, icon: 'login', text: 'What is the check-in time?' },
-  { id: 2, icon: 'logout', text: 'What is the check-out time?' },
-  { id: 3, icon: 'bed', text: 'Are beds available for my dates?' },
-  { id: 4, icon: 'restaurant', text: 'Is breakfast included?' },
-  { id: 5, icon: 'local-parking', text: 'Is parking available?' },
-  { id: 6, icon: 'wifi', text: 'How is the WiFi speed?' },
-  { id: 7, icon: 'cancel', text: 'What is the cancellation policy?' },
-  { id: 8, icon: 'directions', text: 'How to reach from bus stand?' },
-];
-
-export const hostelAutoReplies: Record<string, string> = {
-  'What is the check-in time?': 'Our standard check-in time is as per the hostel policy. Early check-in may be available for a small fee. Please confirm with our team!',
-  'What is the check-out time?': 'Standard check-out is 11 AM. Late check-out can be arranged subject to availability.',
-  'Are beds available for my dates?': 'Please share your dates and we will check availability right away! 📅',
-  'Is breakfast included?': 'Breakfast inclusion depends on the room type. Dorm packages often include breakfast. Please check your booking details.',
-  'Is parking available?': 'Yes, we have parking available for both bikes and cars. It is free of charge for all guests! 🚗',
-  'How is the WiFi speed?': 'We have high-speed WiFi throughout the property. Perfect for remote work and staying connected! 📶',
-  'What is the cancellation policy?': 'We offer free cancellation up to 72h before arrival. Late cancellations may incur charges. Check your booking confirmation for details.',
-  'How to reach from bus stand?': 'We are just 10-15 minutes from the bus stand by auto. Share your arrival time and we can arrange a pickup! 🚐',
+// ─── Generate initial messages when opening from a blog ─────────────────────
+export const generateBlogContextMessages = (
+  authorName: string,
+  blogTitle: string,
+  category: string,
+) => {
+  const firstName = authorName.split(' ')[0];
+  return [
+    {
+      id: 'ctx_1',
+      text: `Hey! 👋 I saw you tapped "Chat" from my blog — "${blogTitle}". So happy you found it useful!`,
+      isUser: false,
+      time: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }),
+    },
+    {
+      id: 'ctx_2',
+      text: `Feel free to ask me anything about the trip — budget, stay, routes, food, everything! I love helping fellow travellers plan better 🗺️`,
+      isUser: false,
+      time: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }),
+    },
+  ];
 };
 
+// ─── Traveler Quick Replies ──────────────────────────────────────────────────
+export const travelerQuickReplies = [
+  { id: 1, icon: 'attach-money', text: 'What was your total budget?' },
+  { id: 2, icon: 'calendar-today', text: 'Best time to visit?' },
+  { id: 3, icon: 'hotel', text: 'Where did you stay?' },
+  { id: 4, icon: 'directions-bus', text: 'How did you get there?' },
+  { id: 5, icon: 'restaurant', text: 'Food recommendations?' },
+  { id: 6, icon: 'warning', text: 'Any safety tips?' },
+  { id: 7, icon: 'photo-camera', text: 'Best spots for photos?' },
+  { id: 8, icon: 'content-copy', text: 'Can I copy your itinerary?' },
+];
+
+export const travelerAutoReplies: Record<string, string> = {
+  'What was your total budget?':
+    "Check out the budget section in my blog — I've broken it down day by day! Happy to help you estimate for your trip too.",
+  'Best time to visit?':
+    "I mentioned the best season in my vlog! Each destination has a sweet spot. What's your flexibility on dates?",
+  'Where did you stay?':
+    'I stayed at a mix of hostels and homestays — all mentioned with links in my blog description. Highly recommend homestays for authentic experience!',
+  'How did you get there?':
+    'I took the overnight bus/train — affordable and comfortable. Check my blog for exact routes and booking tips!',
+  'Food recommendations?':
+    "Local dhabas are the best! I've listed my top 3-4 food spots in the blog. Don't miss the local specialty 😋",
+  'Any safety tips?':
+    "Stay on marked trails, keep emergency contacts saved, and always inform someone of your itinerary. I've covered this in detail in my post!",
+  'Best spots for photos?':
+    'Golden hour at the viewpoint is unbeatable! Check the "photography guide" section of my blog for exact coordinates 📍',
+  'Can I copy your itinerary?':
+    "Of course! Go to my blog and tap \"Copy Itinerary\" — it'll clone the full plan to your Traveloop account 🗺️",
+};
+
+// ─── Support / Predefined Questions ─────────────────────────────────────────
 export const predefinedQuestions = [
   { id: 1, icon: 'book-online', text: 'How do I make a booking?' },
   { id: 2, icon: 'cancel', text: 'How do I cancel my booking?' },
   { id: 3, icon: 'payment', text: 'What payment methods are accepted?' },
   { id: 4, icon: 'female', text: 'How does Female Solo filter work?' },
-  { id: 5, icon: 'star', text: 'How are hostels rated?' },
+  { id: 5, icon: 'star', text: 'How are trips rated?' },
   { id: 6, icon: 'local-offer', text: 'Are there any ongoing offers?' },
-  { id: 7, icon: 'help', text: 'I have a problem with my stay' },
+  { id: 7, icon: 'help', text: 'I have a problem with my trip plan' },
   { id: 8, icon: 'account-circle', text: 'How to update my profile?' },
 ];
 
 export const autoReplies: Record<string, string> = {
-  'How do I make a booking?': 'To make a booking, go to Home → Search your destination → Select dates and guests → Click "Let\'s Start" → Choose a hostel → Click "Choose a Room" → Select your bed and confirm!',
-  'How do I cancel my booking?': 'To cancel a booking, go to Bookings tab → Select your booking → Click "Cancel Booking". Please note cancellation policies vary per hostel. Most allow free cancellation 72h before check-in.',
-  'What payment methods are accepted?': 'We accept UPI (GPay, PhonePe, Paytm), Credit/Debit Cards, Net Banking, and BirdCoins. All payments are 100% secure.',
-  'How does Female Solo filter work?': 'The Female Solo filter shows only verified female-friendly hostels — secure lockers, female staff, safe neighborhoods, and positive reviews from solo female travelers.',
-  'How are hostels rated?': 'Hostels are rated by verified guests on a scale of 1-10 based on cleanliness, location, staff, facilities, and value for money.',
-  'Are there any ongoing offers?': 'Yes! Check the Notifications tab for latest deals. Currently: 20% off on Goa hostels and Weekend Special 15% off on Co-live spaces. Use code WEEKEND15.',
-  'I have a problem with my stay': 'We\'re sorry to hear that! Please describe your issue and we\'ll connect you with our 24/7 support team. For urgent issues, call: 1800-XXX-XXXX.',
-  'How to update my profile?': 'Go to the Me tab → Click the edit icon → Update your details → Save.',
+  'How do I make a booking?':
+    'To plan a trip, go to Home → Tap "Plan New Trip" → Add your cities and dates → Search activities → Save your itinerary!',
+  'How do I cancel my booking?':
+    "Go to My Trips → Select your trip → Tap \"Delete Trip\". Note: if you've booked external stays, cancel those directly with the provider.",
+  'What payment methods are accepted?':
+    'We accept UPI (GPay, PhonePe, Paytm), Credit/Debit Cards, and Net Banking. All payments are 100% secure.',
+  'How does Female Solo filter work?':
+    'The Female Solo filter shows only verified female-friendly destinations and community blogs from solo female travelers.',
+  'How are trips rated?':
+    'Trips and blogs are rated by the community based on accuracy, detail, photos, and helpfulness of the itinerary.',
+  'Are there any ongoing offers?':
+    'Check the Discover tab for featured blogs and seasonal trip deals. New offers drop every weekend! 🎉',
+  'I have a problem with my trip plan':
+    "We're sorry to hear that! Please describe the issue and our team will assist you. For urgent help, tap the phone icon above.",
+  'How to update my profile?':
+    'Go to the Profile tab → Tap the edit icon → Update your name, photo, or travel preferences → Save.',
 };

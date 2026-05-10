@@ -109,14 +109,16 @@ export const styles = StyleSheet.create({
     width: 52,
     height: 52,
     borderRadius: 26,
-    backgroundColor: '#fff0f2',
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
+  },
+  avatarBoxSupport: {
+    backgroundColor: '#fff0f2',
     borderColor: '#E8445A',
   },
-  avatarBoxHostel: {
-    backgroundColor: '#f0f8ff',
+  avatarBoxTraveler: {
+    backgroundColor: '#f0f6ff',
     borderColor: '#007AFF',
   },
   onlineDot: {
@@ -137,7 +139,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: 4,
+    marginBottom: 2,
   },
   chatNameRow: {
     flexDirection: 'row',
@@ -158,8 +160,8 @@ export const styles = StyleSheet.create({
   typeBadgeSupport: {
     backgroundColor: '#fff0f2',
   },
-  typeBadgeHostel: {
-    backgroundColor: '#e8f4ff',
+  typeBadgeTraveler: {
+    backgroundColor: '#e8f0ff',
   },
   typeBadgeText: {
     fontSize: 10,
@@ -169,6 +171,19 @@ export const styles = StyleSheet.create({
   chatTime: {
     fontSize: 12,
     color: '#aaa',
+  },
+  // Blog context row — shown under traveler name
+  blogContextRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    marginBottom: 3,
+  },
+  blogContextText: {
+    fontSize: 11,
+    color: '#aaa',
+    flex: 1,
+    fontStyle: 'italic',
   },
   chatBottomRow: {
     flexDirection: 'row',
