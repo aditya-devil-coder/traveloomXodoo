@@ -1,98 +1,45 @@
-[This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+Traveloop
 
-# Getting Started
+Personalized Travel Planning Made Easy, Empowering users to dream, design, and organize trips with an end-to-end travel planning tool.
+[Traveloop Banner]
+Overview
+Traveloop is a personalized, intelligent, and collaborative platform that transforms the way individuals plan and experience travel. Designed as a user-centric application, it simplifies the complexity of planning multi-city travel, helping travelers stay within budget while enjoying full visibility of their journeys. 
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+Whether you're exploring global destinations, visualizing day-to-day itineraries, or connecting with fellow travelers for tips, Traveloop makes travel planning as exciting as the trip itself.
 
-## Step 1: Start Metro
+ Key Features
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+ Seamless Onboarding
+Secure Login & Registration : Clean and intuitive authentication screens with support for email/password and social logins (Google/Apple).
+Personalized Profiles :  Users can set up their travel preferences, location, and contact details to get a tailored experience.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+Dynamic Home Dashboard
+Travel Stats :  Instantly view your lifetime travel stats (Trips, Countries, Cities).
+Quick Discovery : Search for destinations, filter by categories (Asia, Europe, Beach, Mountain), and access quick actions like Flights, Hotels, and Visas.
+Top Destinations :  Curated recommendations to spark your next adventure.
 
-```sh
-# Using npm
-npm start
+ Multi-City Itinerary Builder
+Create Custom Trips :  Easily define trip names, start/end dates, and primary destinations.
+Smart Suggestions :  Get tailored recommendations for places to visit and activities to perform during your stay.
+Interactive Timelines :  Visualize your plans with a smooth, dynamic UI.
 
-# OR using Yarn
-yarn start
-```
+ Travel Blogs & Inspiration
+Rich Content :  Browse featured travel stories, seasonal guides, and hidden gems written by fellow travelers.
+Categorized Discovery : Filter blogs by Adventure, Road Trip, Trekking, and more.
 
-## Step 2: Build and run your app
+Community & Traveler Chat
+Connect with Authors :  Read a blog you love? Tap the "Message" button to chat directly with the author!
+Real-Time Messaging :  Dedicated chat interface to ask fellow travelers about their itineraries, budgets, routes, and food recommendations.
+Dedicated Support :  Built-in Traveloop Support channel to assist you while planning.
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+ Budgeting & Logistics (Core Engine)
+Cost Estimations : Automatic trip budget estimations and financial breakdowns.
+Relational Data : Powered by a robust relational database to efficiently store user itineraries, activities, and estimated expenses.
 
-### Android
+App Walkthrough
 
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
-](https://github.com/aditya-devil-coder/traveloomXodoo)
+ Tech Stack
+Frontend : [Insert Framework, React Native ]
+Backend : [Insert Backend, Node.js]
+Database :  [Insert Relational DB, MySQL]
+UI/UX : Figma / Custom CSS
